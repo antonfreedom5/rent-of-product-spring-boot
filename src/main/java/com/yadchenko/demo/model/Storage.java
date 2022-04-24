@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,6 +15,4 @@ public class Storage {
     private String name;
     private String phone;
     private String address;
-    @OneToMany
-    private List<Product> products;
 }

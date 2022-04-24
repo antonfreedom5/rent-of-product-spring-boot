@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -23,8 +24,13 @@ public class ProductController {
         return productService.getAll();
     }
 
-    @DeleteMapping()
-    public void delete(@RequestBody Long id) {
+    @PostMapping("/has-clients")
+    public Boolean hasClients(@RequestBody Long id) {
+        return productService.hasClients(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 }

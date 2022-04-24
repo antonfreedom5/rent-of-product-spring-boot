@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/client")
 @RequiredArgsConstructor
@@ -23,8 +24,8 @@ public class ClientController {
         return clientService.getAll();
     }
 
-    @DeleteMapping()
-    public void delete(@RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         clientService.delete(id);
     }
 }

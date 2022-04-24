@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/position")
 @RequiredArgsConstructor
@@ -14,8 +15,13 @@ public class PositionController {
     private final PositionService positionService;
 
     @PostMapping()
-    public Position add(@RequestBody String name) {
-        return positionService.add(name);
+    public Position add(@RequestBody Position position) {
+        return positionService.add(position);
+    }
+
+    @PostMapping("/has-employees")
+    public Boolean hasEmployees(@RequestBody Long id) {
+        return positionService.hasEmployees(id);
     }
 
     @GetMapping()
@@ -23,8 +29,8 @@ public class PositionController {
         return positionService.getAll();
     }
 
-    @DeleteMapping()
-    public void delete(@RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         positionService.delete(id);
     }
 }

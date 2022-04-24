@@ -30,6 +30,7 @@ public class ClientServiceImpl implements ClientService {
                         .map(Optional::get)
                         .collect(Collectors.toList())
         );
+        clientRepository.save(currentClient);
         return currentClient;
     }
 

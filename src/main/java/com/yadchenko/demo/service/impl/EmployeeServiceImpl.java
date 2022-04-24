@@ -21,7 +21,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         currentEmployee.setName(employee.getName());
         currentEmployee.setAddress(employee.getAddress());
         currentEmployee.setPhone(employee.getPhone());
-        currentEmployee.setPosition(positionRepository.getById(employee.getPosition().getId()));
+        positionRepository.findById(employee.getPosition().getId()).ifPresent(currentEmployee::setPosition);
+        employeeRepository.save(currentEmployee);
         return currentEmployee;
     }
 

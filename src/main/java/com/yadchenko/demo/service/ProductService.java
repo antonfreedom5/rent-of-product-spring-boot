@@ -13,4 +13,6 @@ public interface ProductService {
     void delete(Long id);
 
     public Optional<Product> recountProduct(Product product);
+
+    Boolean hasClients(Long id);
 }

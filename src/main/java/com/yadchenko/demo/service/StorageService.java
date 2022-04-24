@@ -10,4 +10,6 @@ public interface StorageService {
     List<Storage> getAll();
 
     void delete(Long id);
+
+    Boolean hasProducts(Long id);
 }

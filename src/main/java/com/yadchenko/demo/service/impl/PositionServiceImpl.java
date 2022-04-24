@@ -1,6 +1,7 @@
 package com.yadchenko.demo.service.impl;
 
 import com.yadchenko.demo.model.Position;
+import com.yadchenko.demo.repository.EmployeeRepository;
 import com.yadchenko.demo.repository.PositionRepository;
 import com.yadchenko.demo.service.PositionService;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PositionServiceImpl implements PositionService {
     private final PositionRepository positionRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Override
-    public Position add(String name) {
-        Position currentPosition = positionRepository.findPositionByName(name).orElseGet(Position::new);
-        currentPosition.setName(name);
+    public Position add(Position position) {
+        Position currentPosition = positionRepository.findById(position.getId()).orElseGet(Position::new);
+        currentPosition.setName(position.getName());
+        positionRepository.save(currentPosition);
         return currentPosition;
     }
 
@@ -28,5 +31,11 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public void delete(Long id) {
         positionRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean hasEmployees(Long id) {
+        Position position = positionRepository.findById(id).orElseThrow();
+        return employeeRepository.findAllByPosition(position).size() > 0;
     }
 }
